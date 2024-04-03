@@ -150,9 +150,4 @@ public class Othello {
         printWinner();
         scanner.close();
     }
-
-    public static void main(String[] args) {
-        Othello game = new Othello();
-        game.play();
-    }
 }
