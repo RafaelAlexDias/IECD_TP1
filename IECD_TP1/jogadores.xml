@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<jogadores>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><jogadores>
     <jogador id="2">
         <nome>Maria</nome>
         <password>123456</password>
