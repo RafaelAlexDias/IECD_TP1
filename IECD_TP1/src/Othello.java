@@ -6,11 +6,8 @@ public class Othello {
     private static final char PLAYER1 = 'W';
     private static final char PLAYER2 = 'B';
 
-    private char[][] board;
+    private final char[][] board;
     private char currentPlayer;
-
-    private String player1_name;
-    private String player2_name;
 
     private Player player1;
     private Player player2;
@@ -123,8 +120,10 @@ public class Othello {
         }
         if (player1Count > player2Count) {
             System.out.println("Player 1 wins!");
+            player1.setWinCount(player1.getWinCount() + 1);
         } else if (player1Count < player2Count) {
             System.out.println("Player 2 wins!");
+            player2.setWinCount(player2.getWinCount() + 1);
         } else {
             System.out.println("It's a tie!");
         }
@@ -151,6 +150,5 @@ public class Othello {
         }
         printBoard();
         printWinner();
-        scanner.close();
     }
 }

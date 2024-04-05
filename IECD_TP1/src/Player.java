@@ -6,11 +6,13 @@ public class Player {
     private int age;
     private String password;
     private String nationality;
+    private int winCount;
 
     // Para Login de um jogador
     public Player(String name, String password) {
         this.name = name;
         this.password = password;
+        this.winCount = 0;
     }
 
     // Para registo de um novo jogador
@@ -19,6 +21,7 @@ public class Player {
         this.password = password;
         this.nationality = nationality;
         this.age = age;
+        this.winCount = 0;
     }
 
     public static Player newPlayer() {
@@ -65,6 +68,14 @@ public class Player {
 
     public int getAge() {
         return this.age;
+    }
+
+    public int getWinCount() {
+        return this.winCount;
+    }
+
+    public void setWinCount(int winCount) {
+        this.winCount = winCount;
     }
 
 }

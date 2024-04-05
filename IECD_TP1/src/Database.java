@@ -16,7 +16,6 @@ import org.xml.sax.SAXException;
 
 public class Database {
 
-    Scanner scanner = new Scanner(System.in);
     private static final String xmlFilePath = "IECD_TP1/jogadores.xml";
 
 
@@ -51,6 +50,10 @@ public class Database {
             Element idade = doc.createElement("idade");
             idade.appendChild(doc.createTextNode(Integer.toString(player.getAge())));
             jogador.appendChild(idade);
+
+            Element winCount = doc.createElement("wins");
+            winCount.appendChild(doc.createTextNode(Integer.toString(player.getWinCount())));
+            jogador.appendChild(winCount);
 
             rootNode.appendChild(jogador);
 

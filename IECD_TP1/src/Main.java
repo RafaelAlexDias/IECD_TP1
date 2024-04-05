@@ -24,9 +24,11 @@ public class Main {
 
                 case 1:
                     database.addPlayer(Player.newPlayer());
+                    break;
 
                 case 2:
                     othello.play();
+                    break;
             }
 
         } while (option != 0);
