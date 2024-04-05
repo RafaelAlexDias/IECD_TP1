@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 public class Database {
 
-    private static final String xmlFilePath = "IECD_TP1/jogadores.xml";
+    private static final String xmlFilePath = "jogadores.xml";
 
 
     public void addPlayer(Player player) {

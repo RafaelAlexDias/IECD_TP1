@@ -38,7 +38,7 @@ public class LoginPlayer {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             // Carregar o arquivo XML
-            Document document = builder.parse(new File("IECD_TP1/jogadores.xml"));
+            Document document = builder.parse(new File("jogadores.xml"));
 
             // Obter a raiz do documento
             Element root = document.getDocumentElement();

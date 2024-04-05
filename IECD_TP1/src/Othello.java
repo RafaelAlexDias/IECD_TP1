@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Othello {
     private static final int BOARD_SIZE = 8;
     private static final char EMPTY = '-';
-    private static final char PLAYER1 = 'W';
-    private static final char PLAYER2 = 'B';
+    private static final char PLAYER1 = 'B';
+    private static final char PLAYER2 = 'W';
 
     private final char[][] board;
     private char currentPlayer;
@@ -26,8 +26,8 @@ public class Othello {
             }
         }
         // Starting pieces
-        board[3][3] = board[4][4] = PLAYER1;
-        board[3][4] = board[4][3] = PLAYER2;
+        board[3][3] = board[4][4] = PLAYER2;
+        board[3][4] = board[4][3] = PLAYER1;
     }
 
     private void printBoard() {
@@ -45,16 +45,24 @@ public class Othello {
         if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE || board[row][col] != EMPTY) {
             return false;
         }
+        // Check in all eight directions
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
                 if (dr == 0 && dc == 0) continue;
+
                 int r = row + dr;
                 int c = col + dc;
-                while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == currentPlayer) {
+                boolean hasOpponentBetween = false;
+
+                // Check if there is at least one opponent's disc in this direction
+                while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == getOpponent()) {
                     r += dr;
                     c += dc;
+                    hasOpponentBetween = true;
                 }
-                if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == getOpponent()) {
+
+                // If we encountered at least one opponent's disc and reached our disc again, it's a valid move
+                if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == currentPlayer && hasOpponentBetween) {
                     return true;
                 }
             }
@@ -64,23 +72,32 @@ public class Othello {
 
     private void makeMove(int row, int col) {
         if (!isValidMove(row, col)) {
-            System.out.println("Invalid move. Try again.");
+            System.out.println("Movimento inválido. Tente novamente.");
             return;
         }
         board[row][col] = currentPlayer;
+
+        // Flip discs in all eight directions
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
                 if (dr == 0 && dc == 0) continue;
+
                 int r = row + dr;
                 int c = col + dc;
+                boolean hasOpponentBetween = false;
+
+                // Check if there is at least one opponent's disc in this direction
                 while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == getOpponent()) {
                     r += dr;
                     c += dc;
+                    hasOpponentBetween = true;
                 }
-                if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == currentPlayer) {
+
+                // If we encountered at least one opponent's disc and reached our disc again, flip discs in between
+                if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] == currentPlayer && hasOpponentBetween) {
                     r -= dr;
                     c -= dc;
-                    while (r != row || c != col) {
+                    while (board[r][c] == getOpponent()) {
                         board[r][c] = currentPlayer;
                         r -= dr;
                         c -= dc;
@@ -133,22 +150,27 @@ public class Othello {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Faça o login do primeiro jogador ");
         player1 = LoginPlayer.loginPlayer();
-        System.out.println("Insira o nome do jogador 2: ");
+        System.out.println("Faça o login do segundo jogador ");
         player2 = LoginPlayer.loginPlayer();
+
         while (!isGameOver()) {
             printBoard();
-            if (currentPlayer == 'W') {
-                System.out.println("Turno de " + player1.getName() + " W");
-            }
-            else if (currentPlayer == 'B') {
-                System.out.println("Turno de " + player2.getName() + " B");
+            if (currentPlayer == PLAYER1) {
+                System.out.println("Turno de " + player1.getName() + " (B)");
+            } else {
+                System.out.println("Turno de " + player2.getName() + " (W)");
             }
             System.out.print("Insira linha e coluna (e.g., 2 3): ");
             int row = scanner.nextInt();
             int col = scanner.nextInt();
-            makeMove(row, col);
+            if (isValidMove(row, col)) {
+                makeMove(row, col);
+            } else {
+                System.out.println("Movimento inválido. Tente novamente.");
+            }
         }
         printBoard();
         printWinner();
     }
+
 }
