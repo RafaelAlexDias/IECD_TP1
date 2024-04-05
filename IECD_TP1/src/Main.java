@@ -12,7 +12,7 @@ public class Main {
         do {
             System.out.println(
                     "1 - Criar jogador" + "\n" +
-                    "2 - Jogar Othello na mesma máquina" +
+                    "2 - Jogar Othello na mesma máquina" + "\n" +
                     "0 - Fechar Programa"
             );
             option = scanner.nextInt();

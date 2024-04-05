@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<jogadores>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><jogadores>
     <jogador>
         <nome>Rafael</nome>
         <password>pass</password>
         <nacionalidade>Portugues</nacionalidade>
         <idade>19</idade>
     </jogador>
-</jogadores>
+    <jogador>
+        <nome>Vasco</nome>
+        <password>pass</password>
+        <nacionalidade>Portugues</nacionalidade>
+        <idade>19</idade>
+    </jogador>
+<jogador><nome>Nuno</nome><password>pass</password><nacionalidade>Portuguesa</nacionalidade><idade>49</idade></jogador></jogadores>

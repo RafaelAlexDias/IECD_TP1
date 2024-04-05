@@ -9,10 +9,11 @@ import java.io.File;
 import java.util.Scanner;
 
 public class LoginPlayer {
-    int credenciaisValidated = 0;
-    Player player;
 
-    public Player loginPlayer() {
+    public static Player loginPlayer() {
+        int credenciaisValidated = 0;
+        Player player;
+
         player = Player.playerForLogin();
 
         while(credenciaisValidated != 1) {
@@ -43,7 +44,7 @@ public class LoginPlayer {
             Element root = document.getDocumentElement();
 
             // Obter a lista de elementos "User"
-            NodeList userList = root.getElementsByTagName("User");
+            NodeList userList = root.getElementsByTagName("jogador");
 
             // Percorrer os elementos "User"
             for (int i = 0; i < userList.getLength(); i++) {
@@ -52,10 +53,10 @@ public class LoginPlayer {
                     Element userElement = (Element) userNode;
 
                     // Obter o elemento "Username" e verificar se corresponde ao valor fornecido
-                    String storedUsername = userElement.getElementsByTagName("Username").item(0).getTextContent();
+                    String storedUsername = userElement.getElementsByTagName("nome").item(0).getTextContent();
                     if (storedUsername.equals(username)) {
                         // Obter o elemento "Password" e verificar se corresponde ao valor fornecido
-                        String storedPassword = userElement.getElementsByTagName("Password").item(0).getTextContent();
+                        String storedPassword = userElement.getElementsByTagName("password").item(0).getTextContent();
                         if (storedPassword.equals(password)) {
                             return true; // Usuário encontrado
                         }

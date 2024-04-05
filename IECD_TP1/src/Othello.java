@@ -132,17 +132,17 @@ public class Othello {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Insira o nome do jogador 1: ");
-        player1_name = scanner.next();
-        System.out.print("Insira o nome do jogador 2: ");
-        player2_name = scanner.next();
+        System.out.println("Faça o login do primeiro jogador ");
+        player1 = LoginPlayer.loginPlayer();
+        System.out.println("Insira o nome do jogador 2: ");
+        player2 = LoginPlayer.loginPlayer();
         while (!isGameOver()) {
             printBoard();
             if (currentPlayer == 'W') {
-                System.out.println("Turno de " + player1_name + " W");
+                System.out.println("Turno de " + player1.getName() + " W");
             }
             else if (currentPlayer == 'B') {
-                System.out.println("Turno de " + player2_name + " B");
+                System.out.println("Turno de " + player2.getName() + " B");
             }
             System.out.print("Insira linha e coluna (e.g., 2 3): ");
             int row = scanner.nextInt();
