@@ -9,32 +9,22 @@ import java.io.File;
 import java.util.Scanner;
 
 public class LoginPlayer {
+    int credenciaisValidated = 0;
+    Player player;
 
-    public void loginPlayer() {
-        Scanner scanner = new Scanner(System.in);
-
-        int credenciaisValidated = 0;
-
-        System.out.println("Insira o seu username: ");
-        String username = scanner.next();
-
-        System.out.println("Insira a sua password: ");
-        String password = scanner.next();
+    public Player loginPlayer() {
+        player = Player.playerForLogin();
 
         while(credenciaisValidated != 1) {
-            if (checkUser(username, password)) {
+            if (checkUser(player.getName(), player.getPassword())) {
                 credenciaisValidated = 1;
                 System.out.println("Login bem-sucedido!");
             } else {
                 System.out.println("Credenciais inválidas. Tente novamente.");
-                System.out.println("Insira o seu username: ");
-                username = scanner.next();
-
-                System.out.println("Insira a sua password: ");
-                password = scanner.next();
+                player = Player.playerForLogin();
             }
         }
-
+        return player;
     }
 
 

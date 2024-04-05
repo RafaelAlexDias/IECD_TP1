@@ -38,6 +38,19 @@ public class Player {
         return player;
     }
 
+    public static Player playerForLogin() {
+        Scanner scanner = new Scanner(System.in);
+        Player player;
+
+        System.out.print("Nome: ");
+        String player_name = scanner.next();
+        System.out.print("Password: ");
+        String player_password = scanner.next();
+        player = new Player(player_name, player_password);
+
+        return player;
+    }
+
     public String getName() {
         return this.name;
     }
