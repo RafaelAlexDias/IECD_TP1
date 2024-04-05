@@ -12,6 +12,9 @@ public class Othello {
     private String player1_name;
     private String player2_name;
 
+    private Player player1;
+    private Player player2;
+
 
     public Othello() {
         board = new char[BOARD_SIZE][BOARD_SIZE];

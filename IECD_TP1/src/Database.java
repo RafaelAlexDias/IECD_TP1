@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 public class Database {
 
     Scanner scanner = new Scanner(System.in);
-    private static final String xmlFilePath = "jogadores.xml";
+    private static final String xmlFilePath = "IECD_TP1/jogadores.xml";
 
 
     public void addPlayer(Player player) {
@@ -61,7 +61,7 @@ public class Database {
             StreamResult result = new StreamResult(new File(xmlFilePath));
             transformer.transform(source, result);
 
-            System.out.println("Jogador adicionado com sucesso!");
+            System.out.println("Jogador adicionado com sucesso!" + "\n");
 
         } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
             e.printStackTrace();

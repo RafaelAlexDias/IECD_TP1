@@ -7,7 +7,13 @@ public class Player {
     private String password;
     private String nationality;
 
+    // Para Login de um jogador
+    public Player(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 
+    // Para registo de um novo jogador
     public Player(String name, String password, String nationality, int age) {
         this.name = name;
         this.password = password;
@@ -28,7 +34,6 @@ public class Player {
         System.out.print("Idade: ");
         int player_age = scanner.nextInt();
         player = new Player(player_name, player_password, player_nationality, player_age);
-        scanner.close();
 
         return player;
     }
