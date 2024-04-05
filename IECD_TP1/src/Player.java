@@ -28,6 +28,7 @@ public class Player {
         System.out.print("Idade: ");
         int player_age = scanner.nextInt();
         player = new Player(player_name, player_password, player_nationality, player_age);
+        scanner.close();
 
         return player;
     }
