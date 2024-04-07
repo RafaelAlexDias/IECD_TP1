@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Othello {
@@ -137,10 +138,10 @@ public class Othello {
         }
         if (player1Count > player2Count) {
             System.out.println("Player 1 wins!");
-            player1.setWinCount(player1.getWinCount() + 1);
+            player1.setWinCount(player1.getWinCount(player1) + 1);
         } else if (player1Count < player2Count) {
             System.out.println("Player 2 wins!");
-            player2.setWinCount(player2.getWinCount() + 1);
+            player2.setWinCount(player2.getWinCount(player2) + 1);
         } else {
             System.out.println("It's a tie!");
         }
@@ -157,8 +158,12 @@ public class Othello {
             printBoard();
             if (currentPlayer == PLAYER1) {
                 System.out.println("Turno de " + player1.getName() + " (B)");
+                player1.setWinCount(player1.getWinCount(player1) + 1);
+                Database.updateWins(player1, player1.getWinCount(player1));
             } else {
                 System.out.println("Turno de " + player2.getName() + " (W)");
+                player2.setWinCount(player2.getWinCount(player2) + 1);
+                Database.updateWins(player2, player2.getWinCount(player2));
             }
             System.out.print("Insira linha e coluna (e.g., 2 3): ");
             int row = scanner.nextInt();

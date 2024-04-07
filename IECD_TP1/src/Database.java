@@ -12,11 +12,12 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Database {
 
-    private static final String xmlFilePath = "jogadores.xml";
+    public static final String xmlFilePath = "jogadores.xml";
 
 
     public void addPlayer(Player player) {
@@ -51,8 +52,9 @@ public class Database {
             idade.appendChild(doc.createTextNode(Integer.toString(player.getAge())));
             jogador.appendChild(idade);
 
+            // Define número de vitórias do jogador
             Element winCount = doc.createElement("wins");
-            winCount.appendChild(doc.createTextNode(Integer.toString(player.getWinCount())));
+            winCount.appendChild(doc.createTextNode(Integer.toString(player.getWinCount(player))));
             jogador.appendChild(winCount);
 
             rootNode.appendChild(jogador);
@@ -71,5 +73,36 @@ public class Database {
         }
     }
 
+
+
+    public static void updateWins(Player player, int wins) {
+
+
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(xmlFilePath);
+
+            NodeList nodeList = doc.getElementsByTagName("jogador");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element userElement = (Element) nodeList.item(i);
+                if (player.getName().equals(userElement.getElementsByTagName("nome").item(0).getTextContent())) {
+                    if (player.getPassword().equals(userElement.getElementsByTagName("password").item(0).getTextContent())) {
+                        userElement.getElementsByTagName("wins").item(0).setTextContent(String.valueOf(wins));
+                    }
+                }
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(xmlFilePath);
+            transformer.transform(source, result);
+
+            System.out.println(player.getName() + " tem: " + wins + " vitórias!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

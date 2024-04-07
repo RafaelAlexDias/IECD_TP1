@@ -1,3 +1,13 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.util.Scanner;
 
 public class Player {
@@ -70,7 +80,27 @@ public class Player {
         return this.age;
     }
 
-    public int getWinCount() {
+    public int getWinCount(Player player) {
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(Database.xmlFilePath);
+
+            Element rootElement = doc.getDocumentElement();
+
+            NodeList nodeList = doc.getElementsByTagName("jogador");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element userElement = (Element) nodeList.item(i);
+                if (player.getName().equals(userElement.getElementsByTagName("nome").item(0).getTextContent())) {
+                    if (player.getPassword().equals(userElement.getElementsByTagName("password").item(0).getTextContent())) {
+                        this.winCount = userElement.getElementsByTagName("wins").item(0).getNodeType();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(this.winCount);
         return this.winCount;
     }
 

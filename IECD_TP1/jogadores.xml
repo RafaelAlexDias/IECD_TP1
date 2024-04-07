@@ -4,13 +4,13 @@
         <password>pass</password>
         <nacionalidade>Portugues</nacionalidade>
         <idade>19</idade>
-        <wins>0</wins>
+        <wins>1</wins>
     </jogador>
     <jogador>
         <nome>Vasco</nome>
         <password>pass</password>
         <nacionalidade>Portugues</nacionalidade>
         <idade>19</idade>
-        <wins>0</wins>
+        <wins>1</wins>
     </jogador>
-<jogador><nome>André</nome><password>pass</password><nacionalidade>pt</nacionalidade><idade>19</idade><wins>0</wins></jogador></jogadores>
+</jogadores>
