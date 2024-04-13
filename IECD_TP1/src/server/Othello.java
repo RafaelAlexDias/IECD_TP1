@@ -1,3 +1,4 @@
+package server;
 
 import java.util.Scanner;
 
@@ -137,10 +138,10 @@ public class Othello {
             }
         }
         if (player1Count > player2Count) {
-            System.out.println("Player 1 wins!");
+            System.out.println("server.Player 1 wins!");
             player1.setWinCount(player1.getWinCount(player1) + 1);
         } else if (player1Count < player2Count) {
-            System.out.println("Player 2 wins!");
+            System.out.println("server.Player 2 wins!");
             player2.setWinCount(player2.getWinCount(player2) + 1);
         } else {
             System.out.println("It's a tie!");

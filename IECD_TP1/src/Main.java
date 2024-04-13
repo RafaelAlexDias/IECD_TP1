@@ -1,3 +1,7 @@
+import server.Database;
+import server.Othello;
+import server.Player;
+
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +16,7 @@ public class Main {
         do {
             System.out.println(
                     "1 - Criar jogador" + "\n" +
-                    "2 - Jogar Othello na mesma máquina" + "\n" +
+                    "2 - Jogar server.Othello na mesma máquina" + "\n" +
                     "0 - Fechar Programa"
             );
             option = scanner.nextInt();
