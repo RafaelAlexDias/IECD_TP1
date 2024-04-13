@@ -40,7 +40,7 @@ public class LoginPlayer {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             // Carregar o arquivo XML
-            Document document = builder.parse(new File("jogadores.xml"));
+            Document document = builder.parse(new File(Database.xmlFilePath));
 
             // Obter a raiz do documento
             Element root = document.getDocumentElement();

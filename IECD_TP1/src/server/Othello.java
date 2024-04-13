@@ -32,7 +32,7 @@ public class Othello {
         board[3][4] = board[4][3] = PLAYER1;
     }
 
-    private void printBoard() {
+    public  void printBoard() {
         System.out.println("  0 1 2 3 4 5 6 7");
         for (int i = 0; i < BOARD_SIZE; i++) {
             System.out.print(i + " ");
@@ -114,7 +114,7 @@ public class Othello {
         return currentPlayer == PLAYER1 ? PLAYER2 : PLAYER1;
     }
 
-    private boolean isGameOver() {
+    public boolean isGameOver() {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (isValidMove(i, j)) {
@@ -174,6 +174,23 @@ public class Othello {
             } else {
                 System.out.println("Movimento inválido. Tente novamente.");
             }
+        }
+        printBoard();
+        printWinner();
+    }
+
+    public void jogar(Player player) {
+        Scanner scanner = new Scanner(System.in);
+        printBoard();
+
+        System.out.println("Turno de " + player.getName());
+        System.out.print("Insira linha e coluna (e.g., 2 3): ");
+        int row = scanner.nextInt();
+        int col = scanner.nextInt();
+        if (isValidMove(row, col)) {
+            makeMove(row, col);
+        } else {
+            System.out.println("Movimento inválido. Tente novamente.");
         }
         printBoard();
         printWinner();

@@ -19,7 +19,7 @@ import server.Player;
 
 public class Database {
 
-    public static final String xmlFilePath = "jogadores.xml";
+    public static final String xmlFilePath = "IECD_TP1\\jogadores.xml";
 
 
     public void addPlayer(Player player) {

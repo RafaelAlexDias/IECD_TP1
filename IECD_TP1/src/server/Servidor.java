@@ -76,9 +76,26 @@ class HandleConnectionThread1 extends Thread {
             System.out.println("Thread " + this.getId() + " a processar " + connection.getRemoteSocketAddress());
 
             // Jogo para acesso remoto
-            Othello othello = new Othello();
+            Othello oth= new Othello();
 
-            othello.play();
+            // Loop para o jogo da galo
+            for (;;) {
+                //oth.jogar(oth.getJogador1());
+
+                // Verifica se o jogo terminou
+                if (oth.isGameOver()) {
+                    //System.out.println(oth.printBoard());
+                    break;
+                }
+
+                //oth.jogar(oth.getJogador2());
+
+                // Verifica se o jogo terminou
+                if (oth.isGameOver()) {
+                    //System.out.println(oth.JogoParaTXT());
+                    break;
+                }
+            }
         } catch (IOException e) {
             System.out.println("Terminou a ligação " + connection + ": " + e.getLocalizedMessage());
         } finally {
