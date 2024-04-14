@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * Classe ServidorTCPConcorrente tem por base um servidor TCP concorrente. Cada
- * tarefa disponibiliza acesso remoto a um jogo do galo mantido no servidor.
+ * Classe ServidorTCPConcorrente tem por base um servidor TCP concorrente.
+ * Cada tarefa disponibiliza acesso remoto a um jogo do galo mantido no servidor.
  *
  * @author Engº Porfírio Filipe
  */
@@ -29,21 +29,28 @@ public class Servidor {
         // Acede ao parametro se existir
         if(args.length==1)
             port = Integer.parseInt(args[0]);
-
+        // Cria um socket servidor na porta especificada
         try (ServerSocket serverSocket = new ServerSocket(port);) {
-            // Cria um socket servidor na porta especificada
+
             System.out.println("Servidor TCP concorrente iniciado...");
             // Loop infinito para aguardar ligações de clientes
             for (;;) {
-                // Aguarda uma conexão de cliente
                 System.out.println("Aguarda ligação no porto " + port + "...");
-                Socket newSock = serverSocket.accept(); // cria circuito virtual
-                System.out.println("Nova ligação recebida de " + newSock.getRemoteSocketAddress());
+                // Espera ligação do primeiro jogador
+                System.out.println("Espera pelo Jogador X");
+                Socket newSock1 = serverSocket.accept();
+                System.out.println("Aceitou ligação do Jogador X");
+                // Espera ligação do segundo jogador
+                System.out.println("Espera pelo Jogador O");
+                Socket newSock2 = serverSocket.accept();
+                System.out.println("Aceitou ligação do Jogador O");
 
-                // Cria uma nova thread para tratar a ligação que remete pedidos do cliente
-                Thread th = new HandleConnectionThread1(newSock);
-                th.start(); // Inicia a thread para executar a interação com o cliente
+
+                // Cria uma nova thread gerir o jogo entre os dois jogadores
+                Thread th = new HandleConnectionThread(newSock1, newSock2);
+                th.start(); // Inicia a thread para executar a interação com os jogadores
             }
+
         } catch (IOException e) {
             System.err.println("Exceção no servidor: " + e.getLocalizedMessage());
         }
@@ -52,56 +59,56 @@ public class Servidor {
 
 /**
  * Classe HandleConnectionThread representa uma thread responsável por tratar a
- * comunicação com um cliente ligado.
+ * comunicação com dois clientes ligados que interagem durante um jogo.
  *
  */
-class HandleConnectionThread1 extends Thread {
+class HandleConnectionThread extends Thread {
 
-    private Socket connection; // Socket da ligação com o cliente
+    private Socket connection1 = null; // Socket da ligação com o jogador X
+    private Socket connection2 = null; // Socket da ligação com o jogador O
 
-    public HandleConnectionThread1(Socket connection) {
-        this.connection = connection;
+    public HandleConnectionThread(Socket connection1, Socket connection2) {
+        this.connection1 = connection1;
+        this.connection2 = connection2;
     }
 
     /**
-     * Método executado pela thread para atender pedidos de um cliente.
+     * Método executado pela thread para gerir um jogo.
      */
     public void run() {
 
-        // Cria streams para leitura e escrita de dados no socket
-        try (
-                Scanner sc = new Scanner(connection.getInputStream());
-                PrintStream os = new PrintStream(connection.getOutputStream(), true);) {
-            // Circuito virtual estabelecido: socket cliente na variável newSock
-            System.out.println("Thread " + this.getId() + " a processar " + connection.getRemoteSocketAddress());
+        try (// Cria streams para leitura e escrita de dados no socket
+             Scanner scX = new Scanner(connection1.getInputStream());
+             Scanner scO = new Scanner(connection2.getInputStream());
+             PrintStream osX = new PrintStream(connection1.getOutputStream(), true);
+             PrintStream osO = new PrintStream(connection2.getOutputStream(), true);) {
+            System.out.println("Thread " + this.getId() + ":");
+            System.out.println("	Jogador X: " + connection1);
+            System.out.println("	Jogador O: " + connection2);
 
-            // Jogo para acesso remoto
-            Othello oth= new Othello();
+            // Gere esta instância do jogo
+            Jogador jogo = new Jogador();
 
-            // Loop para o jogo da galo
+            // Ciclo para gerir a interação com os jogadores, primeiro a jogar X
             for (;;) {
-                //oth.jogar(oth.getJogador1());
-
-                // Verifica se o jogo terminou
-                if (oth.isGameOver()) {
-                    //System.out.println(oth.printBoard());
+                jogo.joga('X',scX, osX);
+                if (jogo.terminou(osX)) {
+                    jogo.terminou(osO);
                     break;
                 }
-
-                //oth.jogar(oth.getJogador2());
-
-                // Verifica se o jogo terminou
-                if (oth.isGameOver()) {
-                    //System.out.println(oth.JogoParaTXT());
+                jogo.joga('O', scO, osO);
+                if (jogo.terminou(osO)) {
+                    jogo.terminou(osX);
                     break;
                 }
             }
         } catch (IOException e) {
-            System.out.println("Terminou a ligação " + connection + ": " + e.getLocalizedMessage());
+            System.out.println("Terminou a ligação!");
         } finally {
-            // Garante o socket é fechado, mesmo em caso de exceção
+            // Garante os socket são fechados, mesmo em caso de exceção
             try {
-                connection.close();
+                connection1.close();
+                connection2.close();
             } catch (IOException e) {
                 // Ignora a exceção caso ocorra algum erro ao fechar
             }
