@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<jogadores>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><jogadores>
     <jogador>
         <nome>Rafael</nome>
         <password>pass</password>
@@ -14,4 +13,4 @@
         <idade>19</idade>
         <wins>1</wins>
     </jogador>
-</jogadores>
+<jogador><nome>Nuno</nome><password>pass</password><nacionalidade>pt</nacionalidade><idade>19</idade><wins>0</wins></jogador></jogadores>

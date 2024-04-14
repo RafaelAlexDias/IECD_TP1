@@ -53,7 +53,6 @@ public class ClienteTCP {
                 System.out.println("Selecione uma opção:");
                 System.out.println("1 - Criar usuário");
                 System.out.println("2 - Fazer login");
-                System.out.println("0 - Sair");
                 option = scanner.nextInt();
 
                 switch (option) {
