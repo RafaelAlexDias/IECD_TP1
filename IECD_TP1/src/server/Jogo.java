@@ -3,7 +3,7 @@ package server;
 /**
  * Classe que implementa as regras do jogo Othello (Reversi).
  *
- * @author Engº Porfírio Filipe
+ * @author Rafael Dias
  */
 public class Jogo {
 
