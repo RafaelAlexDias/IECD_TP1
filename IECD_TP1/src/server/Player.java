@@ -84,8 +84,6 @@ public class Player {
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(Database.xmlFilePath);
 
-            Element rootElement = doc.getDocumentElement();
-
             NodeList nodeList = doc.getElementsByTagName("jogador");
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element userElement = (Element) nodeList.item(i);
@@ -101,9 +99,4 @@ public class Player {
         System.out.println(this.winCount);
         return this.winCount;
     }
-
-    public void setWinCount(int winCount) {
-        this.winCount = winCount;
-    }
-
 }

@@ -8,8 +8,8 @@
                             <xs:element type="xs:string" name="nome"/>
                             <xs:element type="xs:string" name="password"/>
                             <xs:element type="xs:string" name="nacionalidade"/>
-                            <xs:element type="xs:byte" name="idade"/>
-                            <xs:element type="xs:byte" name="wins"/>
+                            <xs:element type="xs:int" name="idade"/>
+                            <xs:element type="xs:int" name="wins"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>

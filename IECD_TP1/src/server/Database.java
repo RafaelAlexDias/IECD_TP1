@@ -78,8 +78,6 @@ public class Database {
 
 
     public static void updateWins(Player player, int wins) {
-
-
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
